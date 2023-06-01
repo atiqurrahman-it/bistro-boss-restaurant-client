@@ -26,6 +26,10 @@ import Login from "../pages/Authentication/Login/Login";
           path:'/login',
           element:<Login></Login>
         },
+        {
+          path:'/sing-up',
+          element:
+        },
       ]
     },
   ]);
