@@ -1,0 +1,10 @@
+
+.input-bordered {
+    background: white;
+    padding: 32px 15px;
+    margin: 15px 0px;
+}
+.input-bordered:focus {
+    outline: none;
+    border:1px solid yellow;
+}

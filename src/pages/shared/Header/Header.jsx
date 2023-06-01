@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const user = {};
+  const user = null;
 
   const handelLogOut = () => {
     console.log("logout ");
@@ -12,13 +12,19 @@ const Header = () => {
         <Link to="/"> Home </Link>
       </li>
       <li>
+        <Link > CONTACT  US </Link>
+      </li>
+      <li>
+        <Link > DASHBOARD </Link>
+      </li>
+      <li>
         <Link to="/menu"> Our Menu </Link>
       </li>
 
       {user ? (
         <>
           <li>
-            <Link to=""> My Toys </Link>
+            <Link to="/order/salad"> Order Food </Link>
           </li>
           <li>
             <Link to=""> Add A Toy </Link>
