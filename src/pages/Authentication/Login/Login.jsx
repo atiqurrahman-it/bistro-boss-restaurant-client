@@ -10,6 +10,7 @@ import {
 } from "react-simple-captcha";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [loginError, setLoginError] = useState("");
@@ -36,15 +37,22 @@ const Login = () => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
-    const password = form.password.value;
+    const password = form.pass.value;
+    console.log("password",password)
     // user login 
     setLoginError(" ")
     logInUser(email,password)
     .then((result) => {
       // Signed in 
       const loggedUser = result.user;
-      
       console.log(loggedUser)
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: " user login successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -55,7 +63,7 @@ const Login = () => {
   };
   return (
     <div className="hero min-h-screen bg-white ">
-      <div className="hero-content flex-col justify-between   lg:flex-row w-full">
+      <div className="hero-content flex-col justify-between lg:flex-row w-full">
         <div className="w-1/2 md:ml-10">
           <img src={loginImage} alt="logo not found" />
         </div>
@@ -82,7 +90,7 @@ const Login = () => {
                 <input
                   type="password"
                   required
-                  name="password"
+                  name="pass"
                   placeholder="Your password"
                   className="input input-bordered"
                 />

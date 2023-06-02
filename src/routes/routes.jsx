@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home/Home";
 import Menu from "../pages/Menu/Menu/Menu";
 import Order from "../pages/Order/Order/Order";
 import Login from "../pages/Authentication/Login/Login";
+import SingUp from "../pages//Authentication/SingUP/SingUp";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -24,12 +25,13 @@ import Login from "../pages/Authentication/Login/Login";
         },
         {
           path:'/login',
-          element:<Login></Login>
+          element:<Login></Login>,
         },
         {
           path:'/sing-up',
-          element:
+          element:<SingUp></SingUp>
         },
+
       ]
     },
   ]);

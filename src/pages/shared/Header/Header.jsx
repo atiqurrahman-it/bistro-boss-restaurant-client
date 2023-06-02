@@ -1,10 +1,18 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const Header = () => {
-  const user = null;
+  const {user,logOutUser} = useContext(AuthContext);
 
   const handelLogOut = () => {
-    console.log("logout ");
+    logOutUser()
+    .then(() => {
+      console.log("logout ");
+    }).catch((error) => {
+      console.log(error)
+    });
+   
   };
   const navList = (
     <>
