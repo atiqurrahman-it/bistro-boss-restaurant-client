@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
-
+import { FaShoppingCart }  from "react-icons/fa";
 const Header = () => {
-  const {user,logOutUser} = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
 
   const handelLogOut = () => {
     logOutUser()
-    .then(() => {
-      console.log("logout ");
-    }).catch((error) => {
-      console.log(error)
-    });
-   
+      .then(() => {
+        console.log("logout ");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const navList = (
     <>
@@ -20,23 +20,19 @@ const Header = () => {
         <Link to="/"> Home </Link>
       </li>
       <li>
-        <Link > CONTACT  US </Link>
+        <Link> CONTACT US </Link>
       </li>
       <li>
-        <Link > DASHBOARD </Link>
+        <Link> DASHBOARD </Link>
       </li>
       <li>
         <Link to="/menu"> Our Menu </Link>
       </li>
-
+      <li>
+        <Link to="/order/salad"> Order Food </Link>
+      </li>
       {user ? (
         <>
-          <li>
-            <Link to="/order/salad"> Order Food </Link>
-          </li>
-          <li>
-            <Link to=""> Add A Toy </Link>
-          </li>
           <li>
             <a onClick={handelLogOut}> LogOut </a>
           </li>
@@ -82,7 +78,7 @@ const Header = () => {
         </div>
         <Link>
           <img
-            src='menue logo'
+            src="menue logo"
             className="w-20 h-8 md:w-40 md:h-10 "
             alt="logo Not found"
           />
@@ -95,6 +91,15 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1 ">{navList}</ul>
       </div>
       <div className="navbar-end items-center">
+    
+          <Link to="/">
+            <div className="indicator mr-5">
+              <FaShoppingCart/>
+              <span className="badge badge-sm indicator-item">0</span>
+            </div>
+          </Link>
+       
+
         {user && (
           <div>
             {user?.photoURL ? (
@@ -119,9 +124,8 @@ const Header = () => {
           </div>
         )}
 
-        <Link to="/blogs">
-          <button className="btn btn-outline btn-warning">Blogs</button>
-        </Link>
+        
+
       </div>
     </div>
   );

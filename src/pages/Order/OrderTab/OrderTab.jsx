@@ -15,6 +15,14 @@ const OrderTab = ({ items }) => {
     },
   };
 
+
+  const pageSize=6;
+  const paginationTotalPage=Math.ceil(items.length/pageSize)
+  console.log("total pagination page ",paginationTotalPage)
+  const slide=[... new Array(paginationTotalPage).keys()]
+
+ 
+
   return (
     <div>
       <Swiper
@@ -22,18 +30,23 @@ const OrderTab = ({ items }) => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {
-            items.map((item,index)=>{
-                if(index%6==0){
-                    console.log(index)
-                }
-            })
-        }
+     
         <SwiperSlide>
           <div className="grid md:grid-cols-3 gap-10">
+
+            {/* {
+               slide.map(index=> {
+                items.slice(index*pageSize,(index+1)*pageSize).map((item) => (
+                  <FoodCard key={item._id} item={item}></FoodCard>
+                ))
+                
+              })
+            } */}
+
             {items.map((item) => (
               <FoodCard key={item._id} item={item}></FoodCard>
             ))}
+
           </div>
         </SwiperSlide>
       </Swiper>
