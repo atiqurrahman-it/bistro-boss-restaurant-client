@@ -5,6 +5,8 @@ import Menu from "../pages/Menu/Menu/Menu";
 import Order from "../pages/Order/Order/Order";
 import Login from "../pages/Authentication/Login/Login";
 import SingUp from "../pages//Authentication/SingUP/SingUp";
+import Dashboard from "../layout/Dashboard";
+import MyCart from "../pages/Dashboard/MyCart/MyCart";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -34,6 +36,16 @@ import SingUp from "../pages//Authentication/SingUP/SingUp";
 
       ]
     },
+    {
+      path:'dashboard/',
+      element:<Dashboard></Dashboard>,
+      children:[
+        {
+          path:'my-cart',
+          element:<MyCart></MyCart>
+        },
+      ]
+    }
   ]);
 
   export default router
