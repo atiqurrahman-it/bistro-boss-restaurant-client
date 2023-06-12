@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
 //create context
@@ -35,17 +36,17 @@ const AuthProviders = ({ children }) => {
   };
 
   // update profile (name & picture )
- const updateUser = (currentUser, userName, profile_picture) => {
-  return updateProfile(currentUser, {
-    displayName: userName,
-    photoURL: profile_picture,
-  });
-};
-
+  const updateUser = (currentUser, userName, profile_picture) => {
+    return updateProfile(currentUser, {
+      displayName: userName,
+      photoURL: profile_picture,
+    });
+  };
 
   // social login
 
   const loginWithGoogle = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -60,6 +61,20 @@ const AuthProviders = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       console.log("auth sate change ", currentUser);
+
+      // get  and set token
+      if (currentUser) {
+        // fetch user korte partam but axios user simple because method header diye hoi na and json e convert korte hoina
+        axios
+          .post(`http://localhost:5000/jwt`, { email: currentUser.email })
+          .then((data) => {
+            console.log("inside server side", data.data.token);
+            localStorage.setItem("access_token_bistro_boss", data.data.token);
+          });
+      } else {
+        localStorage.removeItem("access_token_bistro_boss");
+      }
+
       setLoading(false);
     });
 

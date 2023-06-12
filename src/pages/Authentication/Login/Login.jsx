@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [loginError, setLoginError] = useState("");
@@ -133,7 +134,7 @@ const Login = () => {
                 </div>
               </form>
 
-              {/* <SocialLogin></SocialLogin> */}
+              <SocialLogin></SocialLogin>
 
               <p className="text-center">
                 New here?

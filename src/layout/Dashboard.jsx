@@ -1,10 +1,14 @@
 import { NavLink , Outlet } from "react-router-dom";
 
-import { FaHome,FaWallet ,FaRegCalendarAlt,FaShoppingCart,FaList} from 'react-icons/fa';
+import { FaHome,FaWallet ,FaRegCalendarAlt,FaShoppingCart,FaList,FaUtensils,FaBook,FaUsers} from 'react-icons/fa';
 import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
     const [cart]=useCart()
+
+    // ToDo :  load data form ta server to have dynamic isAdmin base on data
+    const isAdmin =true
+
   return (
     <div className="drawer drawer-mobile">
     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -18,20 +22,35 @@ const Dashboard = () => {
       <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
       <ul className="menu p-4 w-80 bg-[#D1A054] text-base-content uppercase">
         {/* <!-- Sidebar content here --> */}
-        <li><NavLink to='/dashboard/'> <FaHome> </FaHome> Admin Home </NavLink ></li>
-        <li><NavLink  to='/dashboard/reservation'> <FaRegCalendarAlt></FaRegCalendarAlt> reservation  </NavLink ></li>
-        <li><NavLink  to='/dashboard/history' > <FaWallet></FaWallet> payment history  </NavLink ></li>
+
+        {
+          isAdmin ? <>
+              <li><NavLink to='/dashboard/'> <FaHome/> Admin Home </NavLink ></li>
+              <li><NavLink  to='/dashboard/reservation'> <FaUtensils/> add items  </NavLink ></li>
+              <li><NavLink  to='/dashboard/history' > <FaWallet/> manage items  </NavLink ></li>
+              <li><NavLink  to='/dashboard/history' > <FaBook/>  Manage bookings   </NavLink ></li>
+              <li><NavLink  to='/dashboard/all-users' ><FaUsers/> all users   </NavLink ></li>
+
+
+           </> :  <>
+           <li><NavLink to='/dashboard/'> <FaHome> </FaHome> User Home </NavLink ></li>
+           <li><NavLink  to='/dashboard/reservation'> <FaRegCalendarAlt></FaRegCalendarAlt> reservation  </NavLink ></li>
+           <li><NavLink  to='/dashboard/history' > <FaWallet></FaWallet> payment history  </NavLink ></li>
+
+          
+
+           <li><NavLink  to='/dashboard/my-cart'>
+              <div className="indicator mr-1 flex items-center justify-start">
+                <FaShoppingCart/>
+                <span className="badge badge-sm indicator-item">{cart?.length ||0} </span>
+              </div> 
+               my cart</NavLink >
+           </li>
+            </>
+        }
+       
 
         
-
-        <li><NavLink  to='/dashboard/my-cart'>
-             <div className="indicator mr-1 flex items-center justify-start">
-              <FaShoppingCart/>
-              <span className="badge badge-sm indicator-item">{cart?.length ||0} </span>
-             </div> 
-          my cart  </NavLink ></li>
-
-        <li><NavLink  to='/dashboard/all-user'> all users  </NavLink ></li>
 
         <div className="divider"></div>
 

@@ -7,6 +7,8 @@ import Login from "../pages/Authentication/Login/Login";
 import SingUp from "../pages//Authentication/SingUP/SingUp";
 import Dashboard from "../layout/Dashboard";
 import MyCart from "../pages/Dashboard/MyCart/MyCart";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -38,12 +40,17 @@ import MyCart from "../pages/Dashboard/MyCart/MyCart";
     },
     {
       path:'dashboard/',
-      element:<Dashboard></Dashboard>,
+      element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
       children:[
         {
           path:'my-cart',
           element:<MyCart></MyCart>
         },
+        {
+          path:'all-users',
+          element:<AllUsers></AllUsers>
+        },
+      
       ]
     }
   ]);

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import singUpLogo from "../../../assets/others/authentication2.png";
 import { AuthContext } from "../../../providers/AuthProviders";
+import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const SingUp = () => {
   const [registerError, setRegisterError] = useState("");
@@ -30,16 +31,33 @@ const SingUp = () => {
         updateUser(result.user, data.name, data.photo_url)
           .then(() => {
             console.log("profile update");
-            // form.reset();
-            Swal.fire({
-              position: "top-center",
-              icon: "success",
-              title: " Your account has been successfully created",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            //
-            navigate("/")
+
+            // save user info in MongoDB
+            const saveUserInfo = { name: data.name, email: data.email };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUserInfo),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  console.log("userInfo save to DB ");
+                  // form.reset();
+                  Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: " Your account has been successfully created",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  //
+                  navigate("/");
+                }
+              });
+              
           })
           .catch((error) => {
             console.log(error);
@@ -187,7 +205,7 @@ const SingUp = () => {
                 </div>
               </form>
 
-              {/* <SocialLogin></SocialLogin> */}
+              <SocialLogin></SocialLogin>
 
               <p className="text-center">
                 Already have an account?
