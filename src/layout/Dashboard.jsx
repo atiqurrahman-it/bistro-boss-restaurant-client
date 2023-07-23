@@ -2,12 +2,16 @@ import { NavLink , Outlet } from "react-router-dom";
 
 import { FaHome,FaWallet ,FaRegCalendarAlt,FaShoppingCart,FaList,FaUtensils,FaBook,FaUsers} from 'react-icons/fa';
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/userAdmin";
 
 const Dashboard = () => {
     const [cart]=useCart()
 
     // ToDo :  load data form ta server to have dynamic isAdmin base on data
-    const isAdmin =true
+    // const isAdmin =true
+    const [isAdmin]=useAdmin()
+
+
 
   return (
     <div className="drawer drawer-mobile">

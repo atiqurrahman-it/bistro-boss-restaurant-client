@@ -66,9 +66,8 @@ const AuthProviders = ({ children }) => {
       if (currentUser) {
         // fetch user korte partam but axios user simple because method header diye hoi na and json e convert korte hoina
         axios
-          .post(`http://localhost:5000/jwt`, { email: currentUser.email })
+          .post(`http://localhost:5000/jwt`,{ email: currentUser.email })
           .then((data) => {
-            console.log("inside server side", data.data.token);
             localStorage.setItem("access_token_bistro_boss", data.data.token);
           });
       } else {
