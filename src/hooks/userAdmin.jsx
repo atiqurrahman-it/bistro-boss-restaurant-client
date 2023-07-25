@@ -4,6 +4,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useAdmin=()=>{
     const {user}=useAuth()
     const [axiosSecure]=useAxiosSecure();
+    // use axios secure width  react query 
     const {data:isAdmin,isLoading:isAdminLoader}=useQuery({
         queryKey:['isAdmin',user?.email],
         queryFn:async()=>{

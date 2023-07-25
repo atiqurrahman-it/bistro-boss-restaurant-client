@@ -65,16 +65,16 @@ const AuthProviders = ({ children }) => {
       // get  and set token
       if (currentUser) {
         // fetch user korte partam but axios user simple because method header diye hoi na and json e convert korte hoina
-        axios
-          .post(`http://localhost:5000/jwt`,{ email: currentUser.email })
+        axios.post(`http://localhost:5000/jwt`,{ email: currentUser.email })
           .then((data) => {
             localStorage.setItem("access_token_bistro_boss", data.data.token);
+            setLoading(false);
           });
       } else {
         localStorage.removeItem("access_token_bistro_boss");
       }
 
-      setLoading(false);
+     
     });
 
     return () => {
