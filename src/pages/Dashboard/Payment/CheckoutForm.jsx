@@ -2,6 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import "./CheckoutForm.css"
+import Swal from "sweetalert2";
 
 const CheckoutForm = ({ cart,price }) => {
   const stripe = useStripe();
@@ -15,14 +17,14 @@ const CheckoutForm = ({ cart,price }) => {
   const [transactionId, setTransactionId] = useState('');
 
   useEffect(() => {
-     
+     if(price > 0){
       axiosSecure.post('/create-payment-intent', { price }).then((res) => {
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
-   
+    }
     
-  }, []);
+  },[price,axiosSecure]);
 
 
   const handleSubmit = async (event) => {
@@ -78,15 +80,22 @@ const CheckoutForm = ({ cart,price }) => {
             date: new Date(),
             quantity: cart.length,
             cartItems: cart.map(item => item._id),
-            // menuItems: cart.map(item => item.menuItemId),
+            menuItems: cart.map(item => item.productItemId),
             status: 'service pending',
             itemNames: cart.map(item => item.name)
         }
         axiosSecure.post('/payments', payment)
         .then(res => {
             console.log(res.data);
-            if (res.data.insertedId) {
+            if (res.data.insertResult.insertedId) {
                 // display confirm
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'payment successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             }
         })
 
