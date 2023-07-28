@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { FaShoppingCart }  from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/userAdmin";
 const Header = () => {
+  const [isAdmin]=useAdmin();
   const { user, logOutUser } = useContext(AuthContext);
   const [cart]=useCart()
 
@@ -24,9 +26,10 @@ const Header = () => {
       <li>
         <Link> CONTACT US </Link>
       </li>
-      <li>
-        <Link> DASHBOARD </Link>
-      </li>
+      {
+        isAdmin ? <li><Link to="/dashboard/adminHome"> DASHBOARD </Link></li> : <li><Link to="/dashboard/userHome"> DASHBOARD </Link></li>
+      }
+      
       <li>
         <Link to="/menu"> Our Menu </Link>
       </li>
