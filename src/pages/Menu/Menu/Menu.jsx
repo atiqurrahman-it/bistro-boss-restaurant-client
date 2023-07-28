@@ -27,6 +27,7 @@ const Menu = () => {
 
      {/* main cover  */}
       <Cover bgImage={menuImage} tittle="OUR MENU"></Cover>
+      
      {/* offered  section */}
       <SectionTittle
       heading="TODAY'S OFFER"

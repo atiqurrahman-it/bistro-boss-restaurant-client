@@ -1,11 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import "./CheckoutForm.css"
-import Swal from "sweetalert2";
+import "./CheckoutForm.css";
 
-const CheckoutForm = ({ cart,price }) => {
+const CheckoutForm = ({ cart, price }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
@@ -14,18 +14,16 @@ const CheckoutForm = ({ cart,price }) => {
 
   const [clientSecret, setClientSecret] = useState(" ");
   const [processing, setProcessing] = useState(false);
-  const [transactionId, setTransactionId] = useState('');
+  const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
-     if(price > 0){
-      axiosSecure.post('/create-payment-intent', { price }).then((res) => {
+    if (price > 0) {
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
     }
-    
-  },[price,axiosSecure]);
-
+  }, [price, axiosSecure]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,13 +47,14 @@ const CheckoutForm = ({ cart,price }) => {
       console.log("[error]", error);
       setCardError(error.message);
     } else {
-        setCardError(" ");
-        // console.log("[PaymentMethod]", paymentMethod);
+      setCardError(" ");
+      // console.log("[PaymentMethod]", paymentMethod);
     }
 
-    setProcessing(true)
+    setProcessing(true);
     // https://stripe.com/docs/js/payment_intents/confirm_card_payment
-    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
@@ -63,45 +62,41 @@ const CheckoutForm = ({ cart,price }) => {
             name: user?.displayName || "anonymous",
           },
         },
-      }
-      );
+      });
     if (confirmError) {
       console.log(confirmError);
     }
-    console.log('payment intent', paymentIntent)
-    setProcessing(false)
-    if(paymentIntent.status === 'succeeded') {
-        setTransactionId(paymentIntent.id)
-        // save payment information to the server
-        const payment = {
-            email: user?.email,
-            transactionId: paymentIntent.id,
-            price,
-            date: new Date(),
-            quantity: cart.length,
-            cartItems: cart.map(item => item._id),
-            menuItems: cart.map(item => item.productItemId),
-            status: 'service pending',
-            itemNames: cart.map(item => item.name)
+    console.log("payment intent", paymentIntent);
+    setProcessing(false);
+    if (paymentIntent.status === "succeeded") {
+      setTransactionId(paymentIntent.id);
+      // save payment information to the server
+      const payment = {
+        email: user?.email,
+        transactionId: paymentIntent.id,
+        price,
+        date: new Date(),
+        quantity: cart.length,
+        cartItems: cart.map((item) => item._id),
+        menuItems: cart.map((item) => item.productItemId),
+        status: "service pending",
+        itemNames: cart.map((item) => item.name),
+      };
+      axiosSecure.post("/payments", payment).then((res) => {
+        console.log(res.data);
+        if (res.data.insertResult.insertedId) {
+          // display confirm
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "payment successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
-        axiosSecure.post('/payments', payment)
-        .then(res => {
-            console.log(res.data);
-            if (res.data.insertResult.insertedId) {
-                // display confirm
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'payment successfully',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
-        })
-
+      });
     }
-
-  }
+  };
   return (
     <>
       <form className="w-2/3 m-8" onSubmit={handleSubmit}>
@@ -130,8 +125,11 @@ const CheckoutForm = ({ cart,price }) => {
         </button>
       </form>
       {cardError && <p className="text-red-500 ml-10"> {cardError}</p>}
-      {transactionId && <p className="text-green-500 ml-8">Transaction complete with transactionId: {transactionId}</p>}
-
+      {transactionId && (
+        <p className="text-green-500 ml-8">
+          Transaction complete with transactionId: {transactionId}
+        </p>
+      )}
     </>
   );
 };

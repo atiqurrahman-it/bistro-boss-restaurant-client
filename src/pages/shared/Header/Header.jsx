@@ -24,7 +24,7 @@ const Header = () => {
         <Link to="/"> Home </Link>
       </li>
       <li>
-        <Link> CONTACT US </Link>
+        <Link to="/contactUs"> CONTACT US </Link>
       </li>
       {
         isAdmin ? <li><Link to="/dashboard/adminHome"> DASHBOARD </Link></li> : <li><Link to="/dashboard/userHome"> DASHBOARD </Link></li>
