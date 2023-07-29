@@ -60,7 +60,7 @@ const ContactUs = () => {
           </div>
           <div className="card-body mx-4 bg-[#F3F3F3]">
             <h2 className="text-2xl font-bold">Phone</h2>
-            <p>08801518474541</p>
+            <p>+8801518474541</p>
           </div>
         </div>
         <div className="card  ">
@@ -69,7 +69,7 @@ const ContactUs = () => {
           </div>
           <div className="card-body mx-4 bg-[#F3F3F3]">
             <h2 className="text-2xl font-bold">Address</h2>
-            <p>Shyamoli,Dhaka</p>
+            <p>shyamoli,Dhaka</p>
           </div>
         </div>
         <div className="card  ">
@@ -78,7 +78,7 @@ const ContactUs = () => {
           </div>
           <div className="card-body mx-4 bg-[#F3F3F3]">
             <h2 className="text-2xl font-bold">WORKING HOURS</h2>
-            <p>IMon - Fri: 08:00 - 22:00 </p>
+            <p>Mon - Fri: 08:00 - 22:00 </p>
             <p>Sat - Sun: 10:00 - 23:00</p>
           </div>
         </div>

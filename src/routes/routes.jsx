@@ -16,11 +16,12 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
-      errorElement:<h1>error page </h1>,
+      errorElement:<ErrorPage></ErrorPage>,
       children:[
         {
           path:'/',
