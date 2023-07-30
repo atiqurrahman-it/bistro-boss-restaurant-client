@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import SectionTittle from "../../../component/SectionTittle/SectionTittle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { FaUtensils } from "react-icons/fa";
 
 const image_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
 const AddItem = () => {
-    const [axiosSecure]=useAxiosSecure();
+  const [axiosSecure]=useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -49,6 +50,13 @@ const AddItem = () => {
         }
       });
     // image hosing imgbb  end
+  };
+
+
+  const my_button = {
+    background: "linear-gradient(90deg, #835D23 0%, #B58130 100%)",
+    color: "#FFFFFF",
+    // padding: "0px 30px",
   };
 
   return (
@@ -120,8 +128,12 @@ const AddItem = () => {
             className="file-input file-input-bordered w-full bg-white"
           />
         </div>
+
+        <div className="mx-auto w-[200px]">
+              <input className="btn btn-sm py-0  px-0" style={my_button}  type="submit" value="Add Item" />
+               <i className="relative left-[150px] top-[-50px]"><FaUtensils className="text-white" /></i>
+           </div>
         
-        <input className="btn btn-sm mt-4 " type="submit" value="Add Item" />
        
       </form>
     </div>

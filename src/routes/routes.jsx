@@ -17,6 +17,8 @@ import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import ItemEdit from "../pages/Dashboard/ManageItem/ItemEdit";
+import Booking from "../pages/Dashboard/Booking/Booking";
   const router = createBrowserRouter([
     {
       path: "/",
@@ -71,18 +73,27 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
           path:'adminHome',
           element:<AdminRoute> <AdminHome></AdminHome> </AdminRoute>
         },
-        {
-          path:'all-users',
-          element:<AdminRoute> <AllUsers></AllUsers> </AdminRoute>
-        },
+        
         {
           path:'addItem',
           element:<AdminRoute> <AddItem></AddItem> </AdminRoute>
         },
         {
+          path:'itemEdit',
+          element:<AdminRoute> <ItemEdit></ItemEdit> </AdminRoute>
+        },
+        {
           path:"manageItems",
           element:<AdminRoute> <ManageItem></ManageItem> </AdminRoute>
-        }
+        },
+        {
+          path:"booking",
+          element:<AdminRoute> <Booking></Booking> </AdminRoute>
+        },
+        {
+          path:'all-users',
+          element:<AdminRoute> <AllUsers></AllUsers> </AdminRoute>
+        },
       
       ]
     }

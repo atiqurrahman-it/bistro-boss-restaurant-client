@@ -1,6 +1,6 @@
 import { NavLink , Outlet } from "react-router-dom";
 
-import { FaHome,FaWallet ,FaRegCalendarAlt,FaShoppingCart,FaList,FaUtensils,FaBook,FaUsers} from 'react-icons/fa';
+import { FaHome,FaWallet ,FaRegCalendarAlt,FaShoppingCart,FaList,FaUtensils,FaBook,FaUsers,FaEnvelope,FaShoppingBag} from 'react-icons/fa';
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/userAdmin";
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
               <li><NavLink to='/dashboard/adminHome'> <FaHome/> Admin Home </NavLink ></li>
               <li><NavLink  to='/dashboard/addItem'> <FaUtensils/> add items  </NavLink ></li>
               <li><NavLink  to='/dashboard/manageItems' > <FaWallet/> manage items  </NavLink ></li>
-              <li><NavLink  to='/dashboard/history' > <FaBook/>  Manage bookings   </NavLink ></li>
+              <li><NavLink  to='/dashboard/booking' > <FaBook/>  Manage bookings   </NavLink ></li>
               <li><NavLink  to='/dashboard/all-users' ><FaUsers/> all users   </NavLink ></li>
 
 
@@ -60,7 +60,8 @@ const Dashboard = () => {
 
         <li><NavLink  to="/"><FaHome> </FaHome>  Home </NavLink ></li>
         <li><NavLink  to="/menu/"> <FaList/> Our Menu  </NavLink ></li>
-        <li><NavLink  to='/order/salad'> Our Food  </NavLink ></li>
+        <li><NavLink  to='/order/salad'> <FaShoppingBag/> Shop </NavLink ></li>
+        <li><NavLink  to='/contactUs'> <FaEnvelope /> Contact  </NavLink ></li>
 
       </ul>
     
